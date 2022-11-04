@@ -1,0 +1,40 @@
+---
+title: "FrogChart"
+author: "EEKS"
+date: "2022-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r data, include=FALSE}
+eDNAData = read.csv("water_extractions.csv")
+# fixing location type
+eDNAData$Location[eDNAData$Location %in% c("South end of pond", "North end of pond", "Northeast end of pond", "Southeast end of pond", "Little Farm Pond 1", "Little Farm Pond 2", "Little Farm Pond 3", "Jewel Lake 1 ", "Jewel Lake 2")] <- "Pond"
+eDNAData$Location[eDNAData$Location %in% c("Stream by trail 1", "Stream by trail 2")] <- "Stream"
+eDNAData$Location[eDNAData$Location %in% c("Passive teabag filter in DI water", "DI water in bottle")] <- "Control"
+```
+
+## Chart 1
+
+This is a bar graph of Bd **prevalence** based on location type. Should have POS/NEG as x axis, occurences as y axis, stacked with color based on location.
+
+```{r prevalence}
+tab=with(eDNAData, table(Location, Bd_status))
+ggplot(data=as.data.frame(tab), aes(x=Bd_status, y=Freq, fill=Location))+geom_bar(position="stack", stat="identity")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
