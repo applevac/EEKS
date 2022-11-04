@@ -28,13 +28,3 @@ This is a bar graph of Bd **prevalence** based on location type. Should have POS
 tab=with(eDNAData, table(Location, Bd_status))
 ggplot(data=as.data.frame(tab), aes(x=Bd_status, y=Freq, fill=Location))+geom_bar(position="stack", stat="identity")
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
